@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://aastha:aastha@cluster.dqntm.mongodb.net/contact?retryWrites=true&w=majority",
+  "jwtSecret": "rejksnfnvsmlkoeuri"
+}

@@ -1,0 +1,48 @@
+GET http://localhost:5000/api/auth
+ x-auth-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY3MDY5ZGZjYzQzZTQ0YTY0YmJlZGE3In0sImlhdCI6MTYwMTIwNDc3OX0.NKEGQZbMmpdQvdNyoIyC4jbu9W6fZd4w3qtIC5ayQIU
+
+###
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+    "name" :"new user",
+    "email" : "newuser4@user.com",
+    "password" : "1234567"
+}
+
+###
+POST http://localhost:5000/api/auth
+Content-Type: application/json
+
+{
+    "email" : "newuser4@user.com",
+    "password" : "1234567"
+}
+
+###
+GET http://localhost:5000/api/contacts
+x-auth-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY3MDY5ZGZjYzQzZTQ0YTY0YmJlZGE3In0sImlhdCI6MTYwMTIwNDc3OX0.NKEGQZbMmpdQvdNyoIyC4jbu9W6fZd4w3qtIC5ayQIU
+
+### 
+POST http://localhost:5000/api/contacts
+x-auth-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY3MDY4NzlhZWNiZDc0ZjkwMGE5MzVhIn0sImlhdCI6MTYwMTIyNzY1OH0.t6te7gOadYqbspQK8fMNxaiMF8mgm4NrGI-5UnjYL8Q
+
+Content-Type: application/json
+
+{
+    "name" : "new user",
+    "email" : "newuser4@user.com",
+    "phone" : "1234567"
+}
+
+###
+PUT http://localhost:5000/api/contacts/5f707b63f5497f7f3c6966f9
+
+x-auth-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY3MDY5ZGZjYzQzZTQ0YTY0YmJlZGE3In0sImlhdCI6MTYwMTIyNzUxOH0.h8SWFDIPGfAtDb_HT_Su011ZdW__rI3BudWXalthjck
+
+Content-Type: application/json
+
+{
+    "name" : "updated" ,
+}
