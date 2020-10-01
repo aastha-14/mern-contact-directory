@@ -1,16 +1,21 @@
 {
-    "eslint.format.enable": true,
-    "eslint.probe": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "html",
-        "vue",
-        "markdown",
-        "json"
-    ],
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": true
+  "eslint.format.enable": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "json"
+  ],
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "emmet.preferences": {},
+
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
 }

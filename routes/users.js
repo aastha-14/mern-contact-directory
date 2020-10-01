@@ -12,7 +12,7 @@ const config = require('config')
 
 router.post('/', [
     check('name', 'Name should have atleast 5 and atmost 50 characters').notEmpty().isLength({ min: 3, max: 50 }),
-    check('email', "Email should in valid format").isEmail(),
+    check('email', "Email must be in valid format").isEmail(),
     check('password', "Password should have atleast 5 and atmost 50 characters").notEmpty().isLength({ min: 5, max: 50 })],
     async (req, res) => {
         const errors = validationResult(req);
