@@ -2,13 +2,18 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/auth'
+import { clearContact } from "../../actions/contacts"
 
-const NavBar = ({ title, icon, isAuthenticated, user, logout, history }) => {
+const NavBar = ({ title, icon, isAuthenticated, user, logout, history, clearContact }) => {
+    const handleLogout = () => {
+        logout(history)
+        clearContact()
+    }
     const authLinks = (
         <>
             <li>Hello, {user && user.name}</li>
             <li>
-                <a href='#!' onClick={() => logout(history)}>
+                <a href='#!' onClick={handleLogout}>
                     <i className='fas fa-sign-out-alt'></i>
                     <span className="hide-sm">Logout</span>
                 </a>
@@ -39,4 +44,4 @@ NavBar.defaultProps = {
 const mapStateToProps = ({ auth: { isAuthenticated, user } }) => ({
     isAuthenticated, user
 })
-export default connect(mapStateToProps, { logout })(withRouter(NavBar))
+export default connect(mapStateToProps, { logout, clearContact })(withRouter(NavBar))

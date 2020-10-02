@@ -3,10 +3,10 @@ import { connect } from "react-redux"
 import { deleteContact, clearContact, setCurrentContact } from "../../actions/contacts"
 
 const ContactItem = ({ contact, clearContact, deleteContact, setCurrentContact }) => {
-    const { id, name, email, phone, type } = contact
+    const { _id, name, email, phone, type } = contact
 
     function handleDelete() {
-        deleteContact(id)
+        deleteContact(_id)
         clearContact()
     }
     return (
@@ -25,9 +25,12 @@ const ContactItem = ({ contact, clearContact, deleteContact, setCurrentContact }
             <ul className='list'>
                 {email && (<li><i className='fa fa-envelope-open'></i>{email}</li>)}
                 {phone && (<li><i className='fa fa-phone'></i>{phone}</li>)}
-
             </ul>
-            <p className='btn btn-dark btn-sm' onClick={() => setCurrentContact(contact)}>Edit</p>
+            <p
+                className='btn btn-dark btn-sm'
+                onClick={() => setCurrentContact(contact)}
+            >Edit
+            </p>
             <p className='btn btn-danger btn-sm' onClick={handleDelete}>Delete</p>
 
         </div>

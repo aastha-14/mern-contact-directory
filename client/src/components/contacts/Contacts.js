@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import ContactItem from "./ContactItem"
+import { getContacts } from '../../actions/contacts'
+import Spinner from '../layouts/Spinner'
 
-function Contacts({ contacts }) {
-    const filtered = contacts.filtered
-    if (!contacts.contacts.length) return <h4>Please add a contact.</h4>
-
+function Contacts({ cont, getContacts }) {
+    const { contacts, loading, filtered } = cont
+    useEffect(() => {
+        getContacts()
+    }, [getContacts])
+    if (contacts && !contacts.length && !loading) return <h4>Please add a contact.</h4>
     return (
         <div>
-            {filtered ?
-                filtered.map(filter => <ContactItem key={filter.id} contact={filter} />)
-                :
-                contacts.contacts.map(contact => <ContactItem key={contact.id} contact={contact} />)}
+            {contacts && !loading ? (<>{
+                filtered ?
+                    filtered.map(filter => <ContactItem key={filter.id} contact={filter} />)
+                    :
+                    contacts.map(contact => <ContactItem key={contact._id} contact={contact} />)}</>) : <Spinner />}
         </div>
     )
 }
 
 const mapStateToProps = ({ contacts }) => ({
-    contacts
+    cont: contacts
 })
-export default connect(mapStateToProps)(Contacts)
+export default connect(mapStateToProps, { getContacts })(Contacts)

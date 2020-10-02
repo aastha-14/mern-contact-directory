@@ -1,30 +1,62 @@
-import { v4 } from 'uuid'
+import axios from 'axios'
+import { setAlert } from "./alert";
 
-export const addContact = (contact) => (dispatch) => {
-    contact.id = v4()
-    dispatch({ type: 'ADD_CONTACT', payload: contact })
+export const addContact = (contact) => async (dispatch) => {
+    try {
+        const res = await axios.post('/api/contacts', contact)
+        dispatch({ type: 'ADD_CONTACT', payload: res.data.contact })
+    } catch (error) {
+        const errors = error.response.data.errors
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+        }
+    }
 }
 
-export const deleteContact = (id) => dispatch => {
-    dispatch({ type: 'DELETE_CONTACT', payload: id })
+export const getContacts = () => async (dispatch) => {
+    try {
+        const res = await axios.get('/api/contacts')
+        dispatch({ type: 'GET_CONTACTS', payload: res.data.contacts })
+    } catch (error) {
+        console.log(error.response.data);
+    }
 }
 
-export const setCurrentContact = (contact) => dispatch => {
+export const deleteContact = (id) => async (dispatch) => {
+    try {
+        const res = await axios.delete(`/api/contacts/${id}`)
+        console.log(res.data);
+        dispatch({ type: 'DELETE_CONTACT', payload: id })
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const setCurrentContact = (contact) => async (dispatch) => {
     dispatch({ type: 'SET_CONTACT', payload: contact })
 }
 
-export const clearContact = () => dispatch => {
+export const clearContact = () => async (dispatch) => {
     dispatch({ type: 'CLEAR_CONTACT' })
 }
 
-export const updateContact = (contact) => (dispatch) => {
-    dispatch({ type: 'UPDATE_CONTACT', payload: contact })
+export const updateContact = (contact) => async (dispatch) => {
+    try {
+        const res = await axios.put(`/api/contacts/${contact._id}`, contact)
+        console.log(res.data);
+        dispatch({ type: 'UPDATE_CONTACT', payload: res.data.contact })
+    } catch (error) {
+        const errors = error.response.data.errors
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+        }
+    }
 }
 
-export const filterContact = (text) => (dispatch) => {
+export const filterContact = (text) => async (dispatch) => {
     dispatch({ type: 'FILTER_CONTACT', payload: text })
 }
 
 export const clearFilter = () => (dispatch) => {
-    dispatch({ type: 'CLEAR_FILTER'})
+    dispatch({ type: 'CLEAR_FILTER' })
 }
