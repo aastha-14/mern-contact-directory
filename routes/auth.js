@@ -41,7 +41,7 @@ router.post('/',
         try {
             const { email, password } = req.body
             let user = await User.findOne({ email })
-            if (!user) res.status(400).json({ msg: "user is not resgistered" })
+            if (!user) res.status(400).json({ msg: "User is not resgistered" })
 
             const matchPassword = await bcrypt.compare(password, user.password)
             if (!matchPassword) res.status(400).json({ msg: "Invalid credentials" })
