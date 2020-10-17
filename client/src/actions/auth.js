@@ -4,9 +4,7 @@ import { setAlert } from "./alert";
 
 // Load user
 export const loadUser = () => async (dispatch) => {
-    if (localStorage.token) {
-        setAuthToken(localStorage.token)
-    }
+    setAuthToken(localStorage.token);
     try {
         const res = await axios.get('/api/auth')
         dispatch({ type: 'USER_LOADED', payload: res.data.user })

@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import { addContact, clearContact, updateContact } from '../../actions/contacts';
+import {
+    addContact,
+    clearContact,
+    clearCurrentContact,
+    updateContact
+} from '../../actions/contacts';
 
-function ContactForm({ addContact, currentContact, clearContact, updateContact }) {
+function ContactForm({ addContact,
+    currentContact,
+    clearContact,
+    clearCurrentContact,
+    updateContact }) {
     useEffect(() => {
         if (currentContact) {
             setContact(currentContact);
@@ -38,6 +47,7 @@ function ContactForm({ addContact, currentContact, clearContact, updateContact }
                 type: 'personal'
             });
         }
+        clearCurrentContact();
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -80,4 +90,4 @@ function ContactForm({ addContact, currentContact, clearContact, updateContact }
 const mapStateToProps = (state) => ({
     currentContact: state.contacts.contact,
 });
-export default connect(mapStateToProps, { addContact, clearContact, updateContact })(ContactForm);
+export default connect(mapStateToProps, { addContact, clearContact, clearCurrentContact, updateContact })(ContactForm);
