@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from "react-redux"
-import { addContact, clearContact, updateContact } from '../../actions/contacts'
+import React, { useState, useEffect } from 'react';
+import { connect } from "react-redux";
+import { addContact, clearContact, updateContact } from '../../actions/contacts';
 
 function ContactForm({ addContact, currentContact, clearContact, updateContact }) {
     useEffect(() => {
         if (currentContact) {
-            setContact(currentContact)
+            setContact(currentContact);
         } else {
             setContact({
                 name: '',
                 email: '',
                 phone: '',
                 type: 'personal'
-            })
+            });
         }
-    }, [currentContact])
+    }, [currentContact]);
 
     const [contact, setContact] = useState({
         name: '',
         email: '',
         phone: '',
         type: 'personal'
-    })
+    });
 
-    const { name, email, phone, type } = contact
+    const { name, email, phone, type } = contact;
 
     function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
         if (currentContact) {
-            updateContact(contact)
-
-            clearContact()
+            updateContact(contact);
         } else {
-            addContact(contact)
+            addContact(contact);
             setContact({
                 name: '',
                 email: '',
                 phone: '',
                 type: 'personal'
-            })
+            });
         }
     }
     return (
@@ -77,9 +75,9 @@ function ContactForm({ addContact, currentContact, clearContact, updateContact }
                 <button className='btn btn-white btn-block' onClick={() => clearContact()}>Clear</button>
             </div>}
         </form>
-    )
+    );
 }
 const mapStateToProps = (state) => ({
     currentContact: state.contacts.contact,
-})
-export default connect(mapStateToProps, { addContact, clearContact, updateContact })(ContactForm)
+});
+export default connect(mapStateToProps, { addContact, clearContact, updateContact })(ContactForm);

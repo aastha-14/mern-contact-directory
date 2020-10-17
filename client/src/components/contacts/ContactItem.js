@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from "react-redux"
-import { deleteContact, clearContact, setCurrentContact } from "../../actions/contacts"
+import { deleteContact, clearCurrentContact, setCurrentContact } from "../../actions/contacts"
 
-const ContactItem = ({ contact, clearContact, deleteContact, setCurrentContact }) => {
+const ContactItem = ({ contact, clearCurrentContact, deleteContact, setCurrentContact }) => {
     const { _id, name, email, phone, type } = contact
 
     function handleDelete() {
         deleteContact(_id)
-        clearContact()
+        clearCurrentContact()
     }
     return (
         <div className="card bg-light">
@@ -37,4 +37,4 @@ const ContactItem = ({ contact, clearContact, deleteContact, setCurrentContact }
     )
 }
 
-export default connect(null, { deleteContact, clearContact, setCurrentContact })(ContactItem)
+export default connect(null, { deleteContact, clearCurrentContact, setCurrentContact })(ContactItem)

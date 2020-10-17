@@ -16,6 +16,7 @@ export const addContact = (contact) => async (dispatch) => {
 export const getContacts = () => async (dispatch) => {
     try {
         const res = await axios.get('/api/contacts')
+        console.log(res.data);
         dispatch({ type: 'GET_CONTACTS', payload: res.data.contacts })
     } catch (error) {
         console.log(error.response.data);
@@ -36,14 +37,21 @@ export const setCurrentContact = (contact) => async (dispatch) => {
     dispatch({ type: 'SET_CONTACT', payload: contact })
 }
 
+export const clearCurrentContact = () => (dispatch) => {
+    dispatch({ type: 'CLEAR_CURRENT_CONTACT'})
+}
 export const clearContact = () => async (dispatch) => {
-    dispatch({ type: 'CLEAR_CONTACT' })
+    dispatch({ type: 'CLEAR_CONTACTS' })
 }
 
 export const updateContact = (contact) => async (dispatch) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
     try {
-        const res = await axios.put(`/api/contacts/${contact._id}`, contact)
-        console.log(res.data);
+        const res = await axios.put(`/api/contacts/${contact._id}`, contact, config)
         dispatch({ type: 'UPDATE_CONTACT', payload: res.data.contact })
     } catch (error) {
         const errors = error.response.data.errors
