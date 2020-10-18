@@ -7,11 +7,15 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.jwt);
     try {
         const res = await axios.get('/api/auth');
-        dispatch({ type: 'USER_LOADED', payload: res.data.user });
-    } catch (error) {
+        dispatch({
+            type: 'USER_LOADED',
+            payload: res.data.user
+        });
+    } catch (err) {
         dispatch({ type: 'AUTH_ERROR' });
     }
 };
+
 // Register user
 export const registerUser = (data) => async (dispatch) => {
     const config = {
@@ -21,7 +25,6 @@ export const registerUser = (data) => async (dispatch) => {
     };
     try {
         const res = await axios.post('/api/users', data, config);
-        console.log(res.data);
         dispatch({ type: 'REGISTER_SUCCESS', payload: res.data });
         loadUser();
     } catch (error) {

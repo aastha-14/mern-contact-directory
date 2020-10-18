@@ -16,7 +16,7 @@ function Contacts({ cont, getContacts }) {
         <div>
             {contacts && !loading ? (<>{
                 filtered ?
-                    filtered.map(filter => <ContactItem key={filter.id} contact={filter} />)
+                    filtered.map((filter, index) => <ContactItem key={index} contact={filter} />)
                     :
                     contacts.map(contact => <ContactItem key={contact._id} contact={contact} />)}</>) : <Spinner />}
         </div>

@@ -24,7 +24,7 @@ export const getContacts = () => async (dispatch) => {
 
 export const deleteContact = (id) => async (dispatch) => {
     try {
-        const res = await axios.delete(`/api/contacts/${id}`);
+        await axios.delete(`/api/contacts/${id}`);
         dispatch({ type: 'DELETE_CONTACT', payload: id });
     } catch (error) {
         console.error(error);

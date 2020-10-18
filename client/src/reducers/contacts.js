@@ -22,7 +22,9 @@ export default function (state = initiaState, action) {
         case 'DELETE_CONTACT':
             return {
                 ...state,
-                contacts: state.contacts.filter(contact => contact.id !== action.payload),
+                contacts: state.contacts.filter(
+                    contact => contact._id !== action.payload
+                ),
                 loading: false
             };
         case 'SET_CONTACT':
@@ -49,7 +51,6 @@ export default function (state = initiaState, action) {
             return {
                 ...state,
                 contact: null,
-                contacts: [],
                 loading: false,
                 filtered: null
             };
