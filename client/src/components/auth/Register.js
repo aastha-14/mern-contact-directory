@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { registerUser } from '../../actions/auth'
-import { setAlert } from '../../actions/alert'
-import { withRouter } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/auth';
+import { setAlert } from '../../actions/alert';
+import { withRouter } from 'react-router-dom';
 
 function Register({ history, registerUser, setAlert, auth: { error, isAuthenticated } }) {
     const [user, setUser] = useState({
@@ -10,30 +10,30 @@ function Register({ history, registerUser, setAlert, auth: { error, isAuthentica
         email: '',
         password: '',
         password2: ''
-    })
-    const { name, email, password, password2 } = user
+    });
+    const { name, email, password, password2 } = user;
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (password !== password2) {
             setAlert('Passwords do not match.', 'danger');
         } else {
-            registerUser(user)
+            registerUser(user);
             setUser({
                 name: '',
                 email: '',
                 password: '',
                 password2: ''
-            })
+            });
         }
 
-    }
+    };
     useEffect(() => {
         if (isAuthenticated) {
-            history.push('/')
+            history.push('/');
         }
 
         // eslint-disable-next-line
-    }, [isAuthenticated])
+    }, [isAuthenticated]);
     return (
         <div className='form-container'>
             <h1>
@@ -43,6 +43,7 @@ function Register({ history, registerUser, setAlert, auth: { error, isAuthentica
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input
+                        id='name'
                         type="text"
                         name='name'
                         value={name}
@@ -53,6 +54,7 @@ function Register({ history, registerUser, setAlert, auth: { error, isAuthentica
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
+                        id='email'
                         type="email"
                         name='email'
                         value={email}
@@ -63,6 +65,7 @@ function Register({ history, registerUser, setAlert, auth: { error, isAuthentica
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <input
+                        id='password'
                         type="password"
                         name='password'
                         value={password}
@@ -73,6 +76,7 @@ function Register({ history, registerUser, setAlert, auth: { error, isAuthentica
                 <div className="form-group">
                     <label htmlFor="password2">Confirm Password</label>
                     <input
+                        id='password2'
                         type="password"
                         name='password2'
                         value={password2}
@@ -85,10 +89,10 @@ function Register({ history, registerUser, setAlert, auth: { error, isAuthentica
                 </div>
             </form>
         </div>
-    )
+    );
 }
 
 const mapStateToProps = state => ({
     auth: state.auth
-})
-export default connect(mapStateToProps, { registerUser, setAlert })(withRouter(Register))
+});
+export default connect(mapStateToProps, { registerUser, setAlert })(withRouter(Register));

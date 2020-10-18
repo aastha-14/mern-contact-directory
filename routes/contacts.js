@@ -11,15 +11,12 @@ const { findByIdAndUpdate } = require("../models/Contact");
 router.get('/', auth, async (req, res) => {
     try {
         const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 });
-
         if (!contacts) res.status(404).json({ msg: "No contacts saved yet" });
-
         res.json({ contacts });
     } catch (error) {
         res.status(500).json({ msg: "Server error" });
         console.error(error.message);
     }
-
 });
 
 // Add contacts
@@ -40,7 +37,7 @@ router.post('/',
         }
         try {
             const { name, email, phone, type } = req.body;
-            const contact = await new Contact({ name, email, phone, type, user: req.user.id });
+            const contact = new Contact({ name, email, phone, type, user: req.user.id });
             await contact.save();
             res.json({ contact });
         } catch (error) {
@@ -63,16 +60,15 @@ router.put('/:id', auth, async (req, res) => {
     if (type) contactFields.type = type;
     try {
         let contact = await Contact.findById(req.params.id);
-
         if (!contact) res.status(404).json({ msg: 'Contact not found' });
-
         // Check if User owns contact
-        if (contact.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
-
-        contact = await Contact.findByIdAndUpdate(req.params.id, { $set: contactFields }, { new: true });
+        if (contact.user.toString() !== req.user.id)
+            return res.status(401).json({ msg: 'Not authorized' });
+        contact = await Contact.findByIdAndUpdate(
+            req.params.id,
+            { $set: contactFields },
+            { new: true });
         res.json({ contact });
-
-
     } catch (error) {
         res.status(500).json({ msg: "Server error" });
         console.error(error.message);

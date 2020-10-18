@@ -1,31 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { userLogin } from '../../actions/auth'
-import { setAlert } from '../../actions/alert'
-import { withRouter } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { userLogin } from '../../actions/auth';
+import { withRouter } from 'react-router-dom';
 
-function Login({ userLogin, auth, setAlert, history }) {
-    const { isAuthenticated } = auth
+function Login({ userLogin, auth, history }) {
+    const { isAuthenticated } = auth;
     const [user, setUser] = useState({
         email: '',
         password: ''
-    })
-    const { email, password } = user
+    });
+    const { email, password } = user;
 
     function handleSubmit(e) {
-        e.preventDefault()
-        userLogin(user)
+        e.preventDefault();
+        userLogin(user);
         setUser({
             email: '',
             password: ''
-        })
+        });
     }
     useEffect(() => {
         if (isAuthenticated) {
-            history.push('/')
+            history.push('/');
         }
         //eslint-disable-next-line
-    }, [isAuthenticated])
+    }, [isAuthenticated]);
     return (
         <div className='form-container'>
             <h1>
@@ -35,6 +34,7 @@ function Login({ userLogin, auth, setAlert, history }) {
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
+                        id='email'
                         type='email'
                         name='email'
                         value={email}
@@ -45,6 +45,7 @@ function Login({ userLogin, auth, setAlert, history }) {
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <input
+                        id='password'
                         type='password'
                         name='password'
                         value={password}
@@ -57,9 +58,9 @@ function Login({ userLogin, auth, setAlert, history }) {
                 </div>
             </form>
         </div>
-    )
+    );
 }
 const mapStateToProps = ({ auth }) => ({
     auth
-})
-export default connect(mapStateToProps, { userLogin, setAlert })(withRouter(Login))
+});
+export default connect(mapStateToProps, { userLogin })(withRouter(Login));

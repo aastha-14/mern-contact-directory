@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Routes from "./components/routing/Route";
-import setAuthToken from './utils/setAuthToken'
-import NavBar from './components/layouts/Navbar'
+import setAuthToken from './utils/setAuthToken';
+import NavBar from './components/layouts/Navbar';
+import { loadUser } from "./actions/auth";
 
 //Redux
 import { Provider } from "react-redux";
 import store from "./store";
 
-import { loadUser } from "./actions/auth";
-
-if (localStorage.token) {
-  setAuthToken(localStorage.token)
+if (localStorage.jwt) {
+  setAuthToken(localStorage.jwt);
 }
 
 const App = () => {
@@ -31,6 +30,6 @@ const App = () => {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;

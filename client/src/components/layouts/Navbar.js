@@ -1,14 +1,29 @@
-import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { logout } from '../../actions/auth'
-import { clearContact } from "../../actions/contacts"
+import React, { useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout, loadUser } from '../../actions/auth';
+import { clearContact } from "../../actions/contacts";
 
-const NavBar = ({ title, icon, isAuthenticated, user, logout, history, clearContact }) => {
+const NavBar = (
+    {
+        title,
+        icon,
+        isAuthenticated,
+        user,
+        logout,
+        history,
+        clearContact,
+        loadUser
+    }) => {
+    useEffect(() => {
+        loadUser();
+        // eslint-disable-next-line
+    }, []);
+
     const handleLogout = () => {
-        logout(history)
-        clearContact()
-    }
+        logout(history);
+        clearContact();
+    };
     const authLinks = (
         <>
             <li>Hello, {user && user.name}</li>
@@ -19,13 +34,13 @@ const NavBar = ({ title, icon, isAuthenticated, user, logout, history, clearCont
                 </a>
             </li>
         </>
-    )
+    );
     const guestLinks = (
         <>
             <li><Link to='/register'>Register</Link></li>
             <li><Link to='/login'>Login</Link></li>
         </>
-    )
+    );
     return (
         <div className="navbar bg-primary">
             <h1><i className={icon}></i> {title}</h1>
@@ -33,15 +48,15 @@ const NavBar = ({ title, icon, isAuthenticated, user, logout, history, clearCont
                 {isAuthenticated ? authLinks : guestLinks}
             </ul>
         </div>
-    )
-}
+    );
+};
 
 NavBar.defaultProps = {
     title: 'Contact Directory',
     icon: 'fas fa-id-card-alt'
-}
+};
 
 const mapStateToProps = ({ auth: { isAuthenticated, user } }) => ({
     isAuthenticated, user
-})
-export default connect(mapStateToProps, { logout, clearContact })(withRouter(NavBar))
+});
+export default connect(mapStateToProps, { logout, clearContact, loadUser })(withRouter(NavBar));

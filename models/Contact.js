@@ -1,11 +1,11 @@
-const mongoose = require("mongoose")
-const { Schema } = mongoose
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 
 module.exports = Contact = mongoose.model('contact', new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'users'
     },
     name: {
         type: String,
@@ -27,4 +27,4 @@ module.exports = Contact = mongoose.model('contact', new Schema({
         type: Date,
         default: Date.now
     }
-}))
+}));
