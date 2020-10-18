@@ -65,7 +65,13 @@ export default function (state = initiaState, action) {
             };
         case 'CLEAR_FILTER':
             return { ...state, filtered: null, loading: false };
-
+        case 'CLEAR_ALL':
+            return {
+                contacts: [],
+                contact: null,
+                loading: false,
+                filtered: null
+            };
         default:
             return state;
     }

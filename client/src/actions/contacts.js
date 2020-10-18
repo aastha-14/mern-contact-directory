@@ -41,6 +41,9 @@ export const clearCurrentContact = () => (dispatch) => {
 export const clearContact = () => async (dispatch) => {
     dispatch({ type: 'CLEAR_CONTACTS' });
 };
+export const clearAllLogout = () => async (dispatch) => {
+    dispatch({ type: 'CLEAR_ALL' });
+};
 
 export const updateContact = (contact) => async (dispatch) => {
     const config = {

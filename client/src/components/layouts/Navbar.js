@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout, loadUser } from '../../actions/auth';
-import { clearContact } from "../../actions/contacts";
+import { clearAllLogout } from "../../actions/contacts";
 
 const NavBar = (
     {
@@ -12,7 +12,7 @@ const NavBar = (
         user,
         logout,
         history,
-        clearContact,
+        clearAllLogout,
         loadUser
     }) => {
     useEffect(() => {
@@ -21,8 +21,8 @@ const NavBar = (
     }, []);
 
     const handleLogout = () => {
+        clearAllLogout();
         logout(history);
-        clearContact();
     };
     const authLinks = (
         <>
@@ -59,4 +59,4 @@ NavBar.defaultProps = {
 const mapStateToProps = ({ auth: { isAuthenticated, user } }) => ({
     isAuthenticated, user
 });
-export default connect(mapStateToProps, { logout, clearContact, loadUser })(withRouter(NavBar));
+export default connect(mapStateToProps, { logout, clearAllLogout, loadUser })(withRouter(NavBar));
